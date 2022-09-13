@@ -1,23 +1,16 @@
-const express = require('express')
-const app = express()
-const port = process.env.PORT || 3000;
-const config = require('config')
+'use strict';
 
-app.get('/', (req, res)=>{
-    res.send('CI/CD App, Works well !')
-})
+const express = require('express');
 
-app.get('/status', (req, res)=>{
-    res.status(200)
-    res.send('Okay')
-})
+// Constants
+const PORT = 8080;
+const HOST = '0.0.0.0';
 
-app.get('/hello',(req, res)=>{
-    res.status(200)
-    res.send('Hi, there!')
+// App
+const app = express();
+app.get('/', (req, res) => {
+  res.send('Hello World');
+});
 
-})
-
-app.listen(port, ()=>{
-    console.log(`Example app listening on http://localhost:${port}`);
-})
+app.listen(PORT, HOST);
+console.log(`Running on http://${HOST}:${PORT}`);
