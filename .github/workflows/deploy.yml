@@ -44,24 +44,6 @@ jobs:
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
-  container:
-    runs-on:
-      - self-hosted
-      - Node
-
-    steps:
-    - name: Login to Amazon ECR Private
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v1
-    
-#    container:
-#      image: '398287634444.dkr.ecr.ap-southeast-1.amazonaws.com/ecr-thientest:nodejs_demo_image'
-#      credentials:
-#        username: AWS
-#        password: ${{ secrets.GITHUB_TOKEN }}
- 
-    - name: run command-lines
+    - name: Running a service from images
       run: |
-        ls -al
-        pwd
-
+        docker run -dit $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
