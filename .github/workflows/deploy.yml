@@ -39,7 +39,16 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ecr-thientest
-        IMAGE_TAG: nodejs_demo_image
+        IMAGE_TAG: nodejs_image_test_CD
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+    - name: service deployment
+      container-test-job:
+        container:
+          image: 398287634444.dkr.ecr.ap-southeast-1.amazonaws.com/ecr-thientest:nodejs_demo_image
+          port:
+            - 80
+          
+
