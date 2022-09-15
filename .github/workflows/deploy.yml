@@ -51,11 +51,11 @@ jobs:
     container:
       image: '398287634444.dkr.ecr.ap-southeast-1.amazonaws.com/ecr-thientest:nodejs_demo_image'
       credentials:
-         username: ${{ github.ref }}
-         password: ${{ secrets.GITHUB_TOKEN }}
+        username: AWS
+        password: ${{ secrets.GITHUB_TOKEN }}
 
     steps: 
-    - name: run command-lines  
+    - name: run command-lines
       run: |
         ls -al
         pwd
