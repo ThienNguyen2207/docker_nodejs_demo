@@ -44,13 +44,17 @@ jobs:
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
-    - name: service deployment
-      container-test-job:
-        container:
-          image: 398287634444.dkr.ecr.ap-southeast-1.amazonaws.com/ecr-thientest:nodejs_demo_image
-          port:
-            - 80
+jobs:
+  container:
+    runs-on:
+      - self-hosted
+      - Node
+    container:
+      image: '398287634444.dkr.ecr.ap-southeast-1.amazonaws.com/ecr-thientest:nodejs_demo_image'
+      credentials:
+         username: ${{ github.ref }}
+         password: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        pwd
         ls -al
+        pwd
 
