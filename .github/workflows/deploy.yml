@@ -50,5 +50,7 @@ jobs:
           image: 398287634444.dkr.ecr.ap-southeast-1.amazonaws.com/ecr-thientest:nodejs_demo_image
           port:
             - 80
-          
+      run: |
+        pwd
+        ls -al
 
