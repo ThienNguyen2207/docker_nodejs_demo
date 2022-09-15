@@ -50,4 +50,4 @@ jobs:
         ECR_REPOSITORY: ecr-thientest
         IMAGE_TAG: nodejs_image_test_CD
       run: |
-        docker run -dit $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        docker run -dit -p 8080:8080 $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
