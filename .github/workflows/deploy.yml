@@ -48,17 +48,17 @@ jobs:
     runs-on:
       - self-hosted
       - Node
-      
-    steps:  
+
+    steps:
     - name: Login to Amazon ECR Private
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
     
-    container:
-      image: '398287634444.dkr.ecr.ap-southeast-1.amazonaws.com/ecr-thientest:nodejs_demo_image'
-      credentials:
-        username: AWS
-        password: ${{ secrets.GITHUB_TOKEN }}
+#    container:
+#      image: '398287634444.dkr.ecr.ap-southeast-1.amazonaws.com/ecr-thientest:nodejs_demo_image'
+#      credentials:
+#        username: AWS
+#        password: ${{ secrets.GITHUB_TOKEN }}
  
     - name: run command-lines
       run: |
