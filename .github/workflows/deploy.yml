@@ -40,6 +40,7 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ecr-thientest
         IMAGE_TAG: nodejs_image_test.${{ github.sha }}
+
       run: |
         PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
@@ -50,9 +51,9 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ecr-thientest
         IMAGE_TAG: nodejs_image_test.${{ github.sha }}
+
         
       run: |
-        PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
         docker stop minu-backend-service && docker rm minu-backend-service
         docker run --name minu-backend-service -dit -p 8080:8080 $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
