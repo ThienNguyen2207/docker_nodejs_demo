@@ -34,6 +34,8 @@ jobs:
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
+
+    -name: create PR_NUMBER variable
       run: |
         PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
 
@@ -42,7 +44,7 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ecr-thientest
         IMAGE_TAG: nodejs_image_test.$PR_NUMBER
-
+        
       run: |
         PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
