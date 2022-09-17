@@ -37,9 +37,7 @@ jobs:
 
     - name: create PR_NUMBER variable
       id: vars
-      run: |
-#        echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
-        echo "::set-output name=PR_NUMBER::$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')"
+      run: echo "::set-output name=PR_NUMBER::$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')"
 #
     - name: Build, tag, and push image to Amazon ECR
       env:
@@ -63,3 +61,4 @@ jobs:
         docker stop minu-backend-service && docker rm minu-backend-service
         docker run --name minu-backend-service -dit -p 8080:8080 $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
+##        echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
