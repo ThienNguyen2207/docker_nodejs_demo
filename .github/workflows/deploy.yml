@@ -37,8 +37,8 @@ jobs:
 
     - name: create PR_NUMBER variable
       run: |
-        echo "PR_NUMBER=test_var" >> $GITHUB_ENV
-#$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
+        echo "PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')" >> $GITHUB_ENV
+#
     - name: Build, tag, and push image to Amazon ECR
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
