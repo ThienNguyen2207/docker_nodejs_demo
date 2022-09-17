@@ -37,13 +37,13 @@ jobs:
 
     - name: create PR_NUMBER variable
       run: |
-        PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
+        echo "PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')" >> $GITHUB_ENV
 
     - name: Build, tag, and push image to Amazon ECR
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ecr-thientest
-        IMAGE_TAG: nodejs_image_test
+        IMAGE_TAG: nodejs_image_test_${{ env.action_state }}
 
       run: |
         echo $PR_NUMBER
@@ -54,7 +54,7 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ecr-thientest
-        IMAGE_TAG: nodejs_image_test
+        IMAGE_TAG: nodejs_image_test_${{ env.action_state }}
         
       run: |
         echo $PR_NUMBER
