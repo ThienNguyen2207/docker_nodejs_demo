@@ -64,7 +64,7 @@ jobs:
         docker run --name minu-backend-service -dit -p 8080:8080 $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
     - name: Send message to Slack API in success case
-      if: ${{ success() }}
+#      if: ${{ success() }}
       uses: slackapi/slack-github-action@v1.18.0      
       with:
         payload: |
@@ -87,7 +87,7 @@ jobs:
         SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
 
     - name: Send message to Slack API in failure case
-      if: ${{ failure() }}
+#      if: ${{ failure() }}
       uses: slackapi/slack-github-action@v1.18.0      
       with:
         payload: |
