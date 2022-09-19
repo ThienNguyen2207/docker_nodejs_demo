@@ -69,13 +69,13 @@ jobs:
       with:
         payload: |
           {
-            "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+            "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url }}",
             "blocks": [
               {
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                  "text": "GitHub Action build result: *${{ job.status }}!!!*\n${{ github.event.pull_request.html_url || Download Image here: https://ap-southeast-1.console.aws.amazon.com/ecr/repositories?region=ap-southeast-1}}"
                 }
               }
             ]
