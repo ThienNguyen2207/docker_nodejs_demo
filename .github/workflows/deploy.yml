@@ -63,26 +63,50 @@ jobs:
         docker stop minu-backend-service && docker rm minu-backend-service
         docker run --name minu-backend-service -dit -p 8080:8080 $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
-    - name: Send message to Slack API
-      id: notify
-      uses: slackapi/slack-github-action@v1.18.0      
-      with:
-        payload: |
-          {
-            "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url }}",
-            "blocks": [
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "GitHub Action build result: *${{ job.status }}!!!*\n${{ github.event.pull_request.html_url}}\nDownload Image here: https://ap-southeast-1.console.aws.amazon.com/ecr/repositories?region=ap-southeast-1"
+    - name: Send message to Slack API in success case
+      if: ${{ success() }}
+        id: notify
+        uses: slackapi/slack-github-action@v1.18.0      
+        with:
+          payload: |
+            {
+              "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url }}",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "GitHub Action build result: *${{ job.status }}!!!*\n${{ github.event.pull_request.html_url}}\nDownload Image here: https://ap-southeast-1.console.aws.amazon.com/ecr/repositories?region=ap-southeast-1"
+                    "color": "#33F21E"
+                  }
                 }
-              }
-            ]
-          }
+              ]
+            }
 
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
 
-        
+    - name: Send message to Slack API in success case
+      if: ${{ failure() }}
+        id: notify
+        uses: slackapi/slack-github-action@v1.18.0      
+        with:
+          payload: |
+            {
+              "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url }}",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "GitHub Action build result: *${{ job.status }}!!!*\n${{ github.event.pull_request.html_url}}"
+                    "color": "#FF0033"
+                  }
+                }
+              ]
+            }
+
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK        
