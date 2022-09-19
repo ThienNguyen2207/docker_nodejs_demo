@@ -64,8 +64,8 @@ jobs:
         docker run --name minu-backend-service -dit -p 8080:8080 $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
     - name: Send message to Slack API
-      uses: archive/github-actions-slack@v2.0.0
       id: notify
+      uses: slackapi/slack-github-action@v1.18.0      
       with:
         payload: |
           {
