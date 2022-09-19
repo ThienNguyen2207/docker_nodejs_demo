@@ -63,4 +63,26 @@ jobs:
         docker stop minu-backend-service && docker rm minu-backend-service
         docker run --name minu-backend-service -dit -p 8080:8080 $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
-##        echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+    - name: Send message to Slack API
+      uses: archive/github-actions-slack@v2.0.0
+      id: notify
+      with:
+        payload: |
+          {
+            "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                }
+              }
+            ]
+          }
+
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+
+        
