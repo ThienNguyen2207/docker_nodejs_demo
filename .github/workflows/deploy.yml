@@ -65,7 +65,6 @@ jobs:
 
     - name: Send message to Slack API in success case
       if: ${{ success() }}
-      id: notify
       uses: slackapi/slack-github-action@v1.18.0      
       with:
         payload: |
@@ -87,9 +86,8 @@ jobs:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
 
-    - name: Send message to Slack API in success case
+    - name: Send message to Slack API in failure case
       if: ${{ failure() }}
-      id: notify
       uses: slackapi/slack-github-action@v1.18.0      
       with:
         payload: |
