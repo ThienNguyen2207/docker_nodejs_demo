@@ -86,7 +86,7 @@ jobs:
         SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
 
     - name: Send message to Slack API in failure case
-      id: notification
+      id: notify
       uses: slackapi/slack-github-action@v1.18.0      
       with:
         payload: |
