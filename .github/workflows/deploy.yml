@@ -67,22 +67,21 @@ jobs:
 #      if: ${{ success() }}
       id: notification
       uses: slackapi/slack-github-action@v1.18.0 
-      with:
-        payload: |
-          {
-            "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url }}",
-            "blocks": [
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "GitHub Action build result: *${{ job.status }}!!!*\n${{ github.event.pull_request.html_url}}\nDownload Image here: https://ap-southeast-1.console.aws.amazon.com/ecr/repositories?region=ap-southeast-1"
-                  "color": "#33F21E"
+        with:
+          payload: |
+            {
+              "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url }}",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "GitHub Action build result: *${{ job.status }}!!!*\n${{ github.event.pull_request.html_url}}\nDownload Image here: https://ap-southeast-1.console.aws.amazon.com/ecr/repositories?region=ap-southeast-1"
+                    "color": "#33F21E"
+                  }
                 }
-              }
-            ]
-          }
-
+              ]
+            }
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
