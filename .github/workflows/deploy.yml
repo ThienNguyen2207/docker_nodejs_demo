@@ -5,6 +5,7 @@ name: NodeJS deployment
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
+  workflow_dispatch:
   pull_request:
     types:
       - closed
@@ -63,7 +64,8 @@ jobs:
         docker stop minu-backend-service && docker rm minu-backend-service
         docker run --name minu-backend-service -dit -p 8080:8080 $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
-    - name: Send message to Slack API in success case
+    - if: ${{ success() }}
+      name: Send message to Slack API in success case
       id: notification
       uses: slackapi/slack-github-action@v1.18.0 
       with:
@@ -84,7 +86,8 @@ jobs:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
 
-    - name: Send message to Slack API in failure case
+    - if: ${{ failure() }}
+      name: Send message to Slack API in failure case
       id: notify
       uses: slackapi/slack-github-action@v1.18.0      
       with:
