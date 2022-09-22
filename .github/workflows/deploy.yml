@@ -29,7 +29,7 @@ jobs:
       uses: anothrNick/github-tag-action@1.40.0
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        WITH_V: true
+        WITH_V: false
     
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
