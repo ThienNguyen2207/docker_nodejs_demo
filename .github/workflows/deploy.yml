@@ -25,11 +25,18 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v2
 
-    - name: Github Tag Bump
-      uses: anothrNick/github-tag-action@1.40.0
-      env:
+    - name: GitHub Tag
+      id: tag_version
+      uses: mathieudutour/github-tag-action@v6.0
+      with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        WITH_V: false
+    
+    - name: Create a GitHub release
+      uses: ncipollo/release-action@v1
+      with:
+        tag: ${{ steps.tag_version.outputs.new_tag }}
+        name: Release ${{ steps.tag_version.outputs.new_tag }}
+        body: ${{ steps.tag_version.outputs.changelog }}
     
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
