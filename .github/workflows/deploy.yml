@@ -64,6 +64,13 @@ jobs:
         docker stop minu-backend-service && docker rm minu-backend-service
         docker run --name minu-backend-service -dit -p 8080:8080 $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
+      - name: Github Tag Bump
+        uses: anothrNick/github-tag-action@1.46.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+
+
     - if: ${{ success() }}
       name: Send message to Slack API in success case
       id: notification
