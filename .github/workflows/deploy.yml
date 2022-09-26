@@ -87,6 +87,7 @@ jobs:
         SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
 
     - if: ${{ failure() }}
+      continue-on-error: true
       name: Send message to Slack API in failure case
       id: notify
       uses: slackapi/slack-github-action@v1.18.0      
