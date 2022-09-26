@@ -63,6 +63,7 @@ jobs:
         echo $PR_NUMBER
         docker stop minu-backend-service && docker rm minu-backend-service
         docker run --name minu-backend-service -dit -p 8080:8080 $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        ls -al /sdesdfsdf
 
     - if: ${{ success() }}
       name: Send message to Slack API in success case
