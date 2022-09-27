@@ -13,10 +13,8 @@ on:
 
 jobs:  
   deploy_to_develop:     
-    name: Build Image
-    runs-on: 
-      - self-hosted
-      - Node
+    runs-on: [ self-host, develop ]
+    if: ${{ github.ref_name == 'develop' }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -104,10 +102,9 @@ jobs:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
 
-  deploy_to_production:     
-    name: Build Images
-    runs-on: 
-      - production
+  deploy_to_production:
+    runs-on: [ self-hosted, production ]
+    if: ${{ github.ref_name == 'production' }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -151,7 +148,7 @@ jobs:
 
     - if: ${{ success() }}
       name: Send message to Slack API in success case
-      id: notify
+      id: notification
       uses: slackapi/slack-github-action@v1.18.0 
       with:
         payload: |
