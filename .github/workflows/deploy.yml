@@ -13,7 +13,7 @@ on:
 
 jobs:  
   deploy_to_develop:     
-    runs-on: [ self-host, Node ]
+    runs-on: [ self-hosted, Node ]
     if: ${{ github.ref_name == 'CICD' }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
