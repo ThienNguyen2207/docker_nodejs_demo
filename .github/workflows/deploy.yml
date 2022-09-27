@@ -9,7 +9,7 @@ on:
   pull_request:
     types:
       - closed
-    branches: [ CICD, CICD_branch ]
+    branches: [ CICD, production ]
 
 jobs:  
   deploy_to_develop:     
